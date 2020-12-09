@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>{{course.course_name}}</h1>
+    {% if messages %}
+    <div id="error">
+        <ul class="messages">    
+            {% for message in messages %}    
+            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+            {% endfor %}
+        </ul>
+    </div>  
+    {% endif %}
+    <form action="/courses/{{course.id}}/add_comment" method="Post">
+    {% csrf_token %}
+        <div>
+            <p id="com">Comment:</p>
+            <textarea id="comtxt" name="content" rows="4" cols="30" placeholder="Enter text here.."></textarea>
+        </div>
+        <input id="post" type="submit" value="post">
+    </form>
+    <h2>Comments</h2>
+    <table>
+        <tr>
+            <th>Comment</th>
+            <th>Action</th>
+        </tr>
+        {% for comment in course.has_comments.all %}
+        <tr>
+            <td>{{comment.content}}</td>
+            <td><a id="del" href="/courses/{{comment.course.id}}/{{comment.id}}/delete_comment">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+</body>
+</html>

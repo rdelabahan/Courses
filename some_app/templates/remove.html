@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Are you sure you want to delete the following course?</h1>
+    <p class="p1">Name: {{course.course_name}}</p>
+    <p class="p1">Description: {{course.description.description}}</p>
+    <a id="no" href="/courses">No</a>
+    <a id="delete" href="/courses/{{course.id}}/delete">Yes, I want to delete this</a>
+</body>
+</html>
